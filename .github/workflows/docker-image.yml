@@ -41,7 +41,7 @@ jobs:
       uses: devops-infra/action-commit-push@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        commit_message: Update version to ${{ steps.version.outputs.version }}
+        commit_message: Update phpapp version number to ${{ steps.version.outputs.version }}
 
     - name: ssh key passphrase
       uses: appleboy/ssh-action@v1.0.0
@@ -51,5 +51,5 @@ jobs:
         key: ${{ secrets.GL_SSH_SECRET }}
         port: ${{ secrets.GL_SSH_PORT }}
         script: |
-          whoami
-          ls -al
+          cd /opt/BasicLampApp/
+          ./startApp.sh
