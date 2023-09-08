@@ -26,7 +26,7 @@ jobs:
       run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
       
     - name: Push the  Push
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}${{ github.sha }}
+      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
     - name: ssh key passphrase
       uses: appleboy/ssh-action@v1.0.0
