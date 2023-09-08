@@ -37,13 +37,11 @@ jobs:
     - name: Push the  Push
       run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
 
-    - name: Commit and push version.txt
-      run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
-        git add version.txt
-        git commit -m "Update version to ${{ steps.version.outputs.version }}"
-        git push
+    - name: Commit and push changes
+      uses: devops-infra/action-commit-push@master
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        commit_message: Update version to ${{ steps.version.outputs.version }}
 
     - name: ssh key passphrase
       uses: appleboy/ssh-action@v1.0.0
