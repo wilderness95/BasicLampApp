@@ -9,3 +9,4 @@ IFS='.' read -ra version_parts <<< "$version"
 new_version=$(IFS='.'; echo "${version_parts[*]}" | tr -d ' ')
 
 echo "wilderness95/phpcontactapp:$new_version" > version.txt
+sed -i "s/PHP_TAG=.*/PHP_TAG=$new_version/g" .env
