@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=$(echo "$(cat version.txt)" | cut -d ':' -f 2 | tr -d ' ')
+version=$(echo "$(cat version.txt)" | cut -d ':' -f 2)
 
 IFS='.' read -ra version_parts <<< "$version"
 
@@ -8,4 +8,4 @@ IFS='.' read -ra version_parts <<< "$version"
 
 new_version=$(IFS='.'; echo "${version_parts[*]}")
 
-echo "wilderness95/phpcontactapp: $new_version" > version.txt
+echo "wilderness95/phpcontactapp:$new_version" > version.txt
