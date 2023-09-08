@@ -28,7 +28,7 @@ table tr:first-child {
 }
 
 table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Sötétebb szín a páros sorokhoz */
+    background-color: #f2f2f2;
 }
 
 table tr {
@@ -37,7 +37,7 @@ table tr {
 
 form table {
     width: 25%;
-    margin: 0 auto; /* Tartalom középre igazítása */
+    margin: 0 auto;
 }
 
 form table tr {
