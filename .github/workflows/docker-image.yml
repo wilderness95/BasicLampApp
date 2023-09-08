@@ -24,3 +24,14 @@ jobs:
       
     - name: Docker Push
       run: docker push wilderness95/phpcontactapp:${{ github.sha }}
+
+    - name: ssh key passphrase
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.GL_SSH_HOST }}
+        username: ${{ secrets.GL_SSH_USER }}
+        key: ${{ secrets.GL_SSH_SECRET }}
+        port: ${{ secrets.GL_SSH_PORT }}
+        script: |
+          whoami
+          ls -al
