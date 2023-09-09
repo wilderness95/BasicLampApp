@@ -68,4 +68,7 @@ jobs:
         port: ${{ secrets.GL_SSH_PORT }}
         script: |
           cd /opt/BasicLampApp/
+          pwd
+          whoami >> 1.txt
+          cat 1.txt
           ./startApp.sh
