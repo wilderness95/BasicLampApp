@@ -67,8 +67,6 @@ jobs:
         key: ${{ secrets.GL_SSH_SECRET }}
         port: ${{ secrets.GL_SSH_PORT }}
         script: |
+          git clone git@github.com:wilderness95/BasicLampApp.git
           cd /opt/BasicLampApp/
-          pwd
-          whoami >> 1.txt
-          cat 1.txt
           ./startApp.sh
