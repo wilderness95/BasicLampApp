@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - OCI
+      - try_buildx_to_create_arb54_based_image
 env:
   IMAGE_NAME: wilderness95/phpcontactapp
   REGISTRY: docker.io
@@ -24,6 +25,13 @@ jobs:
       id: version
       run: echo "::set-output name=version::$(cat version.txt | sed 's/.*://')"
 
+     
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
     - name: docker login
       env:
         DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
@@ -31,11 +39,19 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
       
-    - name: Push the  Push
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+    # - name: Push the  Push
+    #   run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/arm64
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
 
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@master
@@ -51,5 +67,6 @@ jobs:
         key: ${{ secrets.GL_SSH_SECRET }}
         port: ${{ secrets.GL_SSH_PORT }}
         script: |
+          git clone git@github.com:wilderness95/BasicLampApp.git
           cd /opt/BasicLampApp/
           ./startApp.sh

@@ -4,8 +4,8 @@ services:
     image: docker.io/wilderness95/phpcontactapp:${PHP_TAG}
     ports:
       - "${PHP_PORT}:80"
-    volumes:
-      - ./src:/var/www/html
+#    volumes:
+#      - ./src:/var/www/html
     depends_on:
       - db
     environment:
