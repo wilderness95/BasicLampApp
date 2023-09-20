@@ -38,3 +38,4 @@ The LAMP web application consists of the following files and components:
     ```docker build -t lamp-php:1.0 .```
 - Look through the .env file and adjust it to your needs
 - If everything fine, you can start the application with `docker compose up`
+- 
